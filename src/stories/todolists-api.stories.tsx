@@ -80,13 +80,42 @@ export const GetTasks = () => {
 }
 export const CreateTask = () => {
     const [state, setState] = useState<any>(null)
-    useEffect(() => {
-        todolistsAPI.createTask("c120798c-3062-4b8a-a1c9-0de81f13d59b", "New Task")
-            .then(response => {
-                setState(response.data)
-            })
-    }, [])
-    return <div>{JSON.stringify(state)}</div>
+    const [todolistIdValue, setTodolistIdValue] = useState<string>("")
+    const [taskTitleValue, setTaskTitleValue] = useState<string>("")
+    // useEffect(() => {
+    //     todolistsAPI.createTask("c120798c-3062-4b8a-a1c9-0de81f13d59b", "New Task")
+    //         .then(response => {
+    //             setState(response.data)
+    //         })
+    // }, [])
+
+    const createTaskHandler = () => {
+        todolistsAPI.createTask(todolistIdValue, taskTitleValue)
+                .then(response => {
+                    setState(response.data)
+                })
+    }
+
+    return (
+        <div>
+            {JSON.stringify(state)}
+            <br/>
+            <br/>
+            <input placeholder={"todolistId"}
+                   value={todolistIdValue}
+                   onChange={(ev) => setTodolistIdValue(ev.currentTarget.value)}
+            />
+            <br/>
+            <input placeholder={"New TaskTitle"}
+                   value={taskTitleValue}
+                   onChange={(ev) => setTaskTitleValue(ev.currentTarget.value)}
+            />
+            <br/>
+            <button onClick={createTaskHandler}
+            >Create Task Title
+            </button>
+        </div>
+    )
 }
 export const DeleteTask = () => {
     const [state, setState] = useState<any>(null)
@@ -121,7 +150,6 @@ export const DeleteTask = () => {
         </div>
     )
 }
-
 export const UpdateTask = () => {
     const [state, setState] = useState<any>(null)
     const [todolistIdValue, setTodolistIdValue] = useState<string>("")
@@ -158,7 +186,6 @@ export const UpdateTask = () => {
                 setState(response.data)
             })
     }
-
 
     return (
         <div>
