@@ -28,7 +28,7 @@ type GetTaskType = {
     addedDate: string
 }
 
-type UpdateTaskType = {
+export type UpdateTaskType = {
     // id: string
     title: string
     description: null | string
@@ -89,9 +89,9 @@ export const todolistsAPI = {
     deleteTask(todolistId: string, taskId: string) {
         return instance.delete<TasksUniversalResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`)
     },
-    // updateTask(todolistId: string, taskId: string, updateTask:UpdateTaskType) {
-    //         return instance.delete<TasksUniversalResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`)
-    //     },
+    updateTask(todolistId: string, taskId: string, updateTaskModel:UpdateTaskType) {
+            return instance.put(`todo-lists/${todolistId}/tasks/${taskId}`,updateTaskModel)
+        },
 
 }
 

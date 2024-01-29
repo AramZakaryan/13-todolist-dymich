@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import axios from "axios";
-import {todolistsAPI} from "../api/todolists-api";
+import {todolistsAPI, UpdateTaskType} from "../api/todolists-api";
 
 export default {
     title: 'API'
@@ -121,3 +121,69 @@ export const DeleteTask = () => {
         </div>
     )
 }
+
+export const UpdateTask = () => {
+    const [state, setState] = useState<any>(null)
+    const [todolistIdValue, setTodolistIdValue] = useState<string>("")
+    const [taskIdValue, setTaskIdValue] = useState<string>("")
+    const [taskTitleValue, setTaskTitleValue] = useState<string>("")
+    // useEffect(() => {
+    //     todolistsAPI.updateTask("c120798c-3062-4b8a-a1c9-0de81f13d59b",
+    //         "b1ec9ce3-aadb-4a6f-87e9-d02b7d393d08",
+    //         {
+    //             title: "VabsheVabshe new Title !!!",
+    //             description: null,
+    //             status: 0,
+    //             priority: 1,
+    //             startDate: null,
+    //             deadline: "2024-01-29T15:20:16.307"
+    //         } )
+    //         .then(response => {
+    //             setState(response)
+    //         })
+    // }, [])
+
+    const updateTaskHandler = () => {
+        todolistsAPI.updateTask(todolistIdValue,
+            taskIdValue,
+            {
+                title: taskTitleValue,
+                description: null,
+                status: 0,
+                priority: 1,
+                startDate: null,
+                deadline: "2024-01-29T15:20:16.307"
+            } as UpdateTaskType)
+            .then(response => {
+                setState(response.data)
+            })
+    }
+
+
+    return (
+        <div>
+            {JSON.stringify(state)}
+            <br/>
+            <br/>
+            <input placeholder={"todolistId"}
+                   value={todolistIdValue}
+                   onChange={(ev) => setTodolistIdValue(ev.currentTarget.value)}
+            />
+            <br/>
+            <input placeholder={"taskId"}
+                   value={taskIdValue}
+                   onChange={(ev) => setTaskIdValue(ev.currentTarget.value)}
+            />
+            <br/>
+            <input placeholder={"New TaskTitle"}
+                   value={taskTitleValue}
+                   onChange={(ev) => setTaskTitleValue(ev.currentTarget.value)}
+            />
+            <br/>
+            <button onClick={updateTaskHandler}
+            >Update Task Title
+            </button>
+        </div>
+    )
+}
+
