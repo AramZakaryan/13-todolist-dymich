@@ -110,10 +110,10 @@ export const todolistsAPI = {
         return axios.delete(`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}/tasks/${taskId}`,
             config)
     },
-    updateTask(todolistId: string, taskId: string) {
-        return axios.delete(`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}/tasks/${taskId}`,
-            config)
-    },
+    // updateTask(todolistId: string, taskId: string) {
+    //     return axios.delete(`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}/tasks/${taskId}`,
+    //         config)
+    // },
 
 }
 
